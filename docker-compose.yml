@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:    
+  
+  # BACKEND
+  backend:
+    container_name: APISignatureEndpoint
+    build: 
+      context: ./MeetingSignatureEndpoint
+      dockerfile: Dockerfile
+
+    ports:
+      - 4000:4000
+
+    restart: unless-stopped
+    tty: true
+
+    networks: 
+      zoommeeting:
+
+  # FRONTEND
+  frontend:
+    container_name: ZoomSDKReactExample
+    build: 
+      context: ./ZoomSDKReactExample
+      dockerfile: Dockerfile
+
+    ports:
+      - 3000:3000
+
+    restart: unless-stopped
+    tty: true
+
+    networks: 
+      zoommeeting:
+
+        
+networks: 
+      zoommeeting:
